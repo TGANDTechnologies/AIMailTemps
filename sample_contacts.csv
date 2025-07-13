@@ -1,0 +1,11 @@
+firstName,lastName,email,age,gender,location,lastPurchase,purchaseDate,totalSpent,personalityType,communicationStyle,interests
+Sarah,Johnson,sarah.johnson@email.com,28,Female,New York,Premium Subscription,2024-06-15,299.99,Creative,Friendly,Design Technology Art
+Michael,Chen,michael.chen@email.com,34,Male,San Francisco,Business Plan,2024-07-01,199.99,Analytical,Professional,Software Business Analytics
+Emma,Williams,emma.williams@email.com,26,Female,Los Angeles,Starter Kit,2024-05-20,49.99,Social,Casual,Fashion Marketing Social Media
+David,Rodriguez,david.rodriguez@email.com,42,Male,Chicago,Enterprise License,2024-06-28,999.99,Practical,Direct,Business Finance Management
+Lisa,Anderson,lisa.anderson@email.com,31,Female,Miami,Design Package,2024-07-10,149.99,Creative,Friendly,Design Photography Travel
+James,Taylor,james.taylor@email.com,29,Male,Austin,Developer Tools,2024-06-05,79.99,Analytical,Professional,Programming Technology Gaming
+Maria,Garcia,maria.garcia@email.com,25,Female,Seattle,Social Media Bundle,2024-07-02,89.99,Social,Casual,Social Media Content Creation
+Robert,Brown,robert.brown@email.com,38,Male,Denver,Business Consulting,2024-06-18,449.99,Practical,Professional,Business Strategy Leadership
+Jennifer,Davis,jennifer.davis@email.com,33,Female,Portland,Creative Suite,2024-07-05,249.99,Creative,Friendly,Art Design Music
+Thomas,Miller,thomas.miller@email.com,45,Male,Boston,Executive Package,2024-06-25,799.99,Analytical,Direct,Business Finance Investment
