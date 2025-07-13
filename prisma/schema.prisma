@@ -1,0 +1,148 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Contact {
+  id                 Int                 @id @default(autoincrement())
+  firstName          String              @map("firstName")
+  lastName           String              @map("lastName")
+  email              String              @unique
+  age                Int?
+  gender             Gender?
+  location           String?
+  lastPurchase       String?             @map("lastPurchase")
+  purchaseDate       DateTime?           @map("purchaseDate")
+  totalSpent         Float?              @map("totalSpent")
+  personalityType    PersonalityType?    @map("personalityType")
+  communicationStyle CommunicationStyle? @map("communicationStyle")
+  interests          String?
+  phoneNumber        String?             @map("phoneNumber")
+  company            String?
+  jobTitle           String?             @map("jobTitle")
+  source             Source              @default(manual)
+  isActive           Boolean             @default(true) @map("isActive")
+  tags               String[]            @default([])
+  customFields       Json?               @map("customFields")
+  createdAt          DateTime            @default(now()) @map("createdAt")
+  updatedAt          DateTime            @updatedAt @map("updatedAt")
+
+  // Relations
+  emailLogs EmailLog[]
+
+  @@map("contacts")
+}
+
+model Campaign {
+  id           Int            @id @default(autoincrement())
+  name         String
+  prompt       String
+  status       CampaignStatus @default(draft)
+  scheduledFor DateTime?      @map("scheduledFor")
+  createdAt    DateTime       @default(now()) @map("createdAt")
+  updatedAt    DateTime       @updatedAt @map("updatedAt")
+
+  // Relations
+  emailLogs EmailLog[]
+  stats     CampaignStats[]
+
+  @@map("campaigns")
+}
+
+model EmailLog {
+  id         Int         @id @default(autoincrement())
+  contactId  Int         @map("contactId")
+  campaignId Int         @map("campaignId")
+  subject    String
+  content    String
+  status     EmailStatus @default(pending)
+  sentAt     DateTime?   @map("sentAt")
+  openedAt   DateTime?   @map("openedAt")
+  clickedAt  DateTime?   @map("clickedAt")
+  error      String?
+  createdAt  DateTime    @default(now()) @map("createdAt")
+  updatedAt  DateTime    @updatedAt @map("updatedAt")
+
+  // Relations
+  contact  Contact  @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  campaign Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+
+  @@map("email_logs")
+}
+
+model CampaignStats {
+  id           Int      @id @default(autoincrement())
+  campaignId   Int      @map("campaignId")
+  totalSent    Int      @default(0) @map("totalSent")
+  totalOpened  Int      @default(0) @map("totalOpened")
+  totalClicked Int      @default(0) @map("totalClicked")
+  totalFailed  Int      @default(0) @map("totalFailed")
+  openRate     Float    @default(0) @map("openRate")
+  clickRate    Float    @default(0) @map("clickRate")
+  createdAt    DateTime @default(now()) @map("createdAt")
+  updatedAt    DateTime @updatedAt @map("updatedAt")
+
+  // Relations
+  campaign Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+
+  @@unique([campaignId])
+  @@map("campaign_stats")
+}
+
+enum Gender {
+  male
+  female
+  other
+  prefer_not_to_say
+}
+
+enum PersonalityType {
+  extrovert
+  introvert
+  ambivert
+  analytical
+  creative
+  practical
+  emotional
+}
+
+enum CommunicationStyle {
+  formal
+  casual
+  friendly
+  professional
+  direct
+  persuasive
+}
+
+enum Source {
+  manual
+  csv
+  api
+  form
+}
+
+enum CampaignStatus {
+  draft
+  scheduled
+  active
+  completed
+  cancelled
+}
+
+enum EmailStatus {
+  pending
+  sent
+  delivered
+  opened
+  clicked
+  failed
+  bounced
+}
